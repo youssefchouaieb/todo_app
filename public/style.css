@@ -66,6 +66,19 @@ footer {
     margin: 16px
 }
 
+.todo button {
+  position: relative;
+  margin-right: 5px;
+  margin-bottom: 20px;
+  float: right;
+  color: #269dbb;
+  box-shadow: 0 0 0 0 ;
+  border: none;
+  width: 60px;
+  height: 0px;
+  cursor: pointer;
+}
+
 footer p {
     color: #ccc
 }

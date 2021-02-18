@@ -1,22 +1,44 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Header from './Header';
 import Footer from './Footer';
 import Todo from './Todo';
 import Newtodo from './Newtodo';
-import todos from '../todos';
+import todosList from '../todos';
 
+const generateKey = pre => `${pre}_${new Date().getTime()}`;
 
 function App() {
+    const [todos, setTodos] = useState(todosList);
+
+
+    function addTodo(newTodo) {
+        setTodos(prevTodos => [...prevTodos, newTodo]);
+    }
+
+
+    function deleteTodo(id) {
+        setTodos((prevTodos) => {
+            prevTodos.filter((todoItem, index) => index !== id);
+        },
+        );
+    }
+
+
     return (
 
         <div className="App" >
             <Header />
-            <Newtodo />
-            {todos.map(todoItem =>
+            <Newtodo onAdd={addTodo} />
+
+            {todos.map((todoItem, index) =>
              (<Todo
-                 key={todoItem.key}
+
+                 key={generateKey(todoItem.title)}
+                 id={index}
                  title={todoItem.title}
-                 content={todoItem.content} />))}
+                 content={todoItem.content}
+                 onDelete={deleteTodo} />
+                 ))}
 
             <Footer />
         </div>

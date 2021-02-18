@@ -3,21 +3,25 @@
 import React, { useState } from 'react';
 
 
-function Newtodo() {
+function Newtodo(props) {
     const [todo, setTodo] = useState({
         title: '',
         content: '',
     });
 
 
-    function handleChange(event) {
-        const { name, value } = event.target;
+    function handleChange(e) {
+        const { name, value } = e.target;
 
         setTodo(prevTodo => ({
             ...prevTodo,
             [name]: value }));
     }
 
+    function submitTodo(event) {
+        props.onAdd(todo);
+        event.preventDefault();
+    }
 
     return (
         <center>
@@ -27,19 +31,19 @@ function Newtodo() {
                     <input
                         name="title"
                         value={todo.title}
-                        onChange={() => handleChange()}
+                        onChange={e => handleChange(e)}
 
                         placeholder="My todo-item title" />
 
                     <textarea
                         name="content"
                         value={todo.content}
-                        onChange={() => handleChange()}
+                        onChange={e => handleChange(e)}
 
                         placeholder="add a todo-item "
                         rows="1" />
 
-                    <button>Add</button>
+                    <button onClick={submitTodo}>Add</button>
 
                 </form>
 
